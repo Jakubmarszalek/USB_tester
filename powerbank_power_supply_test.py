@@ -16,9 +16,9 @@ def max_current_test(minimal_voltage=None):
         max_current = current_measure.main()
         measure.append([max_current, voltage_measure.main()])
         resistor_change.down()
+        print(voltage_measure.main())
 
     return measure
-
 
 def main():
     resistor_change.set_max()
@@ -31,7 +31,8 @@ def main():
 
     measure = max_current_test(minimal_voltage=4.45)
     print(measure)
-
+    resistor_change.set_max()
+    voltage_change.up()
 
 
 
