@@ -25,10 +25,10 @@ def up():
         if data["base_voltage"] < 11.99:
             data["base_voltage"] = round(data["base_voltage"] + 0.2, 1)
     elif data["QC"] == 2:
-        if data["base_voltage"] == 5:
-            data["base_voltage"] = 9
-        elif data["base_voltage"] == 9:
-            data["base_voltage"] = 12
+        if data["base_voltage"] >= 9:
+            data["base_voltage"] = 12.0
+        elif data["base_voltage"] >= 5:
+            data["base_voltage"] = 9.0
 
     with open('test_data/power_supply.json', "w") as json_file:
         json.dump(data, json_file)
@@ -43,10 +43,10 @@ def down():
         if data["base_voltage"] > 5:
             data["base_voltage"] = round(data["base_voltage"] - 0.2, 1)
     elif data["QC"] == 2:
-        if data["base_voltage"] == 12:
-            data["base_voltage"] = 9
-        elif data["base_voltage"] == 9:
-            data["base_voltage"] = 5
+        if data["base_voltage"] > 9:
+            data["base_voltage"] = 9.0
+        elif data["base_voltage"] <= 9:
+            data["base_voltage"] = 5.0
 
     with open('test_data/power_supply.json', "w") as json_file:
         json.dump(data, json_file)
@@ -66,4 +66,4 @@ def set_voltage(desired_voltage, accepted_delta=0.2):
 
 
 if __name__ == '__main__':
-    print(set_voltage(12, 0.1))
+    print(up())
