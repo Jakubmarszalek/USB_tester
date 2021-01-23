@@ -32,5 +32,13 @@ def set_max():
     return True
 
 
+def set_value(value):
+    with open('test_data/power_supply.json') as json_file:
+        data = json.load(json_file)
+    data["resistor_value"] = value
+    with open('test_data/power_supply.json', "w") as json_file:
+        json.dump(data, json_file)
+    return True
+
 if __name__ == '__main__':
     set_max()

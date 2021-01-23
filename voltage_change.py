@@ -2,6 +2,8 @@ import lcd_screen
 import voltage_measure
 import voltage_change
 import resistor_change
+import rules_module
+
 
 import json
 
@@ -56,12 +58,12 @@ def down():
 def set_voltage(desired_voltage, accepted_delta=0.2):
     resistor_change.set_max()
     while True:
-        measure = check_voltage(desired_voltage, accepted_delta)
-        if measure[0]:
+        measure = rules_module.check_voltage_corretly(desired_voltage, accepted_delta)
+        if measure == "voltage_correct":
             return True
-        elif measure[1] < 0:
+        elif measure == "up":
             voltage_change.up()
-        elif measure[1] > 0:
+        elif measure == "down":
             voltage_change.down()
 
 
